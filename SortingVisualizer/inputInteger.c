@@ -1,0 +1,67 @@
+//Author:                 Taha Twakkal
+//Date:                   2023/11/11 -- 2023/11/13
+//Description:            The purpose of this function is to input, store, and validate
+//a user's input. It can dynamically allocate memory for the user's input, preventing any
+//overflow, prior to validating whether it is an acceptable number or not. It does this
+//by storing the user's input in a char array of a set size, 64, which is then increased 
+//by 64 every time the user's input of chars reaches the current size of the userIn pointer 
+
+#include "mainHeader.h"
+
+//Requests, Stores, and validates a user's input
+int inputInteger() {
+    //Declaring and initializing variables
+        _Bool validInput = 0;
+        int returnValue = 0;
+        char* staticUserIn;
+    
+    do{
+        //Declaring and initializing local variables and pointers
+            int userInIndex = 0, currentUserInSize = 1;                              //currentUserInSize & userInIndex trail each other, such that memory allocation is precise to exact bytes needed
+            int endOfLine = EOF;                                                     //EOF is similar to when the user presses "Enter", useful for program rigitity
+            char *userIn = malloc(sizeof(char));                                     //userIn initialized with size of 1, increased by 1 every time the user inputs in a new character
+
+        //Getting user input, while dynamically allocating more memory if needed
+            while ((endOfLine = getchar()) != '\n' && (char)endOfLine != EOF){
+                *(userIn + userInIndex) = (char)endOfLine;
+                currentUserInSize++;
+                userInIndex++;
+                userIn = realloc(userIn, currentUserInSize);
+            }
+
+        //closing the userIn array and transferring it to a static variable
+        //#8: Remove this entire section, since it's practically redundant and inefficient
+            *(userIn + userInIndex) = '\0';
+            staticUserIn = (char*)malloc(sizeof(userIn));
+            strcpy(staticUserIn, userIn);
+            free(userIn);
+            userIn = NULL;
+
+        //Validating if staticUserIn is an acceptable number
+            for(int i = 0; i < strlen(staticUserIn); i++){
+                if( ( (int)staticUserIn[i]>47 ) && ( (int)staticUserIn[i]<58 ) ){                //ASCII 48 is 0, 57 is 9
+                    validInput = 1;
+                }
+                else {
+                    validInput = 0;
+                    break;
+                }
+            }
+
+            if(!validInput){
+                printf("%s is not a valid whole number greater than 0 (try again):",staticUserIn);
+            }
+            else if(atoi(staticUserIn) > 0){
+                validInput = 1;
+                returnValue = atoi(staticUserIn);
+            }
+            else{
+                printf("%s is not a valid whole number greater than 0 (try again):",staticUserIn);
+                validInput = 0;
+            }
+    }while(!validInput);
+
+    //returning the user's input to main
+        return returnValue;
+        free(staticUserIn);       
+}

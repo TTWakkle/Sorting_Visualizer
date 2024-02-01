@@ -3,8 +3,8 @@
 //Description:            The purpose of this function is to input, store, and validate
 //a user's input. It can dynamically allocate memory for the user's input, preventing any
 //overflow, prior to validating whether it is an acceptable number or not. It does this
-//by storing the user's input in a char array of a set size, 64, which is then increased 
-//by 64 every time the user's input of chars reaches the current size of the userIn pointer 
+//by storing the user's input in a char array of a set size, 1, which is then increased 
+//by 1 every time the user's input of chars reaches the current size of the userIn pointer 
 
 #include "mainHeader.h"
 
@@ -62,6 +62,6 @@ int inputInteger() {
     }while(!validInput);
 
     //returning the user's input to main
+        free(staticUserIn);
         return returnValue;
-        free(staticUserIn);       
 }

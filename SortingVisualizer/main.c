@@ -11,7 +11,7 @@ int main() {
         dataArraySize = inputInteger();
 
         printf("\nSelect which data type you would like to sort\n(\"C\" for characters, \"I\" integers, and \"A\" for asterisk bars): ");
-        generateItems(algorithmDataType());
+        generate(algorithmDataType());
 
 
     //Sorting based on user's choice

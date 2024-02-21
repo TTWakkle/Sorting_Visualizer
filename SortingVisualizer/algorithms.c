@@ -34,7 +34,7 @@
         do{
             //getting user input
                 userIn = inputCharacter();
-            //checking if their input is acceptable
+            //checking if the input is acceptable
                 if(strlen(userIn) > strlen("T\0")){
                     printf("\nYou have entered too many characters, please try again!");
                     validInput = 0;
@@ -79,7 +79,7 @@
             case 2: coctailSort(); break;
             case 3: selectionSort(); break;
             case 4: insertSort(); break;
-            default: printf("\nnone of these were selected lol\n"); break;
+            default: printf("/n That is not a valid selection, please try again!\n"); break;
         }
         return 1;
     }

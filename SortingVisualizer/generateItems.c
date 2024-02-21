@@ -5,8 +5,70 @@
 //array in DM, which the address of is then returned to the user.
 #include "mainHeader.h"
 
-int generateItems(char dataType){
+//Switch block that determines the type of data that is to be generated or inputted by the user
+    int generate(char dataType){
+        //Declaring and initalizing local variables
+            char* userIn;
+            int userArrSize;
+            char returnCharacter;
+            _Bool validInput = 0;
+        //determining wheter the data is to be inputted or generated randomly
+            do {
+                //getting user input
+                    printf("\nPlease select wheter you would like to generate a random array(\"R\") of data or input it manually(\"M\")");
+                    userIn = inputCharacter();
+                //Checking if the input is acceptable
+                    if(strlen(userIn) > strlen("T\0")){
+                        printf("\nYou have entered too many characters, please try again!");
+                        validInput = 0;
+                        free(userIn);
+                    }
+                    else{
+                        returnCharacter = *userIn;
+                        free(userIn);
+                        userIn = NULL;
+                        if((int)returnCharacter > 96 && (int)returnCharacter < 123){                       //ASCII 97 is a, 122 is z
+                            returnCharacter = (char)((int)returnCharacter - 32);                           //this simply capitalizes the user's input 
+                        }
 
-    printf("\n Things will be generated here eventually.");
-    return 1;
-}
+                        switch (returnCharacter){
+                        case 'R':
+                            printf("\nYou have chosen to have the program generate a random array of data");
+                            validInput = 1;
+                            break;
+                        case 'M':
+                            printf("\nYou have chosen to input an array of data manually");
+                            validInput = 1;
+                            break;
+                        default:
+                            printf("\n%c is not recognized as an option, please try again: ", returnCharacter);
+                            validInput = 0;
+                            break;
+                        }
+                    }
+            } while (!validInput);
+
+        //determining the size of the array of data that is to be sorted
+            validInput = 0;
+            printf("\nPlease determine the size of the array you would like to have sorted: ");
+            userArrSize = inputInteger();
+
+        //function calls based on the user's decisions
+            switch (returnCharacter)
+            {
+            case 'M':
+                insertItems(dataType, userArrSize);
+                break;
+            case 'R':
+                generateItems(dataType, userArrSize);
+                break;
+            default:
+                printf("\ncompilation error, please try again\n");
+                return 0;
+                break;
+            }
+            
+        return 1;
+    }
+
+//This function generates items based on a 

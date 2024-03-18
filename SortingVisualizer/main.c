@@ -6,6 +6,7 @@
 int main() {
     //declaring and initializing local variables
         int dataArraySize = 0;
+        DOUBLY_LIST* dataList;
     //getting user input
         printf("\nPlease enter the size of the array of the data you would like to sort: ");
         dataArraySize = inputInteger();

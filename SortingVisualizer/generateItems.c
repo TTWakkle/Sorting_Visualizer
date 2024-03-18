@@ -5,8 +5,8 @@
 //array in DM, which the address of is then returned to the user.
 #include "mainHeader.h"
 
-//Switch block that determines the type of data that is to be generated or inputted by the user
-    int generate(char dataType){
+//Switch block that determines how data will be generated, either randomly or manually, and the size of the data set
+    int generate(char dataType, data_Type* dataLoc){
         //Declaring and initalizing local variables
             char* userIn;
             int userArrSize;
@@ -54,8 +54,7 @@
             userArrSize = inputInteger();
 
         //function calls based on the user's decisions
-            switch (returnCharacter)
-            {
+            switch (returnCharacter) {
             case 'M':
                 insertItems(dataType, userArrSize);
                 break;
@@ -67,8 +66,15 @@
                 return 0;
                 break;
             }
-            
         return 1;
     }
 
-//This function generates items based on a 
+//This function generates data through a randomizer, and stores ...
+    int generateItems(char dataType, int userArrSize, DOUBLY_LIST* dataList){
+
+    }
+
+//This function requests data from the user, and stores ...
+int insertItems(char dataType, int userArrSize){
+
+}

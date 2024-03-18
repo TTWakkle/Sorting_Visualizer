@@ -12,20 +12,21 @@
     //data node structure
         typedef struct {
             data_Type* dataPtr;
-            struct node* next;
-            struct node* previous;
+            int nodeIndex;
+            struct DATA_NODE* next;
+            struct DATA_NODE* previous;
         }DATA_NODE;
     //doubly list of node structure
         typedef struct {
             DATA_NODE* front;
             DATA_NODE *rear;
             int count;
-        }DOUBLY_NODE;
+        }DOUBLY_LIST;
     //function prototypes
 
         int inputInteger(void);
         char* inputCharacter(void);
-        int generate(char dataType);       // "C" for characters, "I" integers, and "A" for asterisk bars
+        int generate(char dataType, DOUBLY_LIST* dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
         int generateItems(char dataType, int arraySize);
         int insertItems(char dataType, int arraySize);
         void printData(char dataType);          // "C" for characters, "I" integers, and "A" for asterisk bars

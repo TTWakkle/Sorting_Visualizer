@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2023/01/18 -- 2023/01/30
+//Date:                   2024/01/16 -- 2023/xx/xx
 //Description:            requests a string of characters from the user,
 //but will only accept a charcter set that does not include any numbers or 
 //symbols, with the exception of spacebars. it allocates memory for the given
@@ -11,11 +11,12 @@
 
 #include "mainHeader.h"
 
-//Requests, Stores, and validates a user's input
-char* inputCharacter() {
+
+/**Requests, Stores, and validates a user's input
+ **IT MUST BE FREED AFTER EVERY CALL OF inputCharacter() TO PREVENT MEMORY LEAKS* */
+char inputCharacter(char** mainUserIn) {
     //Declaring and initializing variables
         _Bool validInput = 0;
-        char* returnUserIn = NULL;
     
     do {
         //Declaring and initializing local variables and pointers
@@ -33,7 +34,7 @@ char* inputCharacter() {
 
         //closing the userIn array and transferring it to a static variable
             *(userIn + userInIndex) = '\0';
-            returnUserIn = (char*)malloc(sizeof(userIn));
+            *mainUserIn = (char*)malloc(sizeof(userIn));
 
         //Validating if staticUserIn is an acceptable set of characters only 
             for(int i = 0; i < strlen(userIn); i++){
@@ -48,14 +49,12 @@ char* inputCharacter() {
             }
 
             if(validInput){
-                strcpy(returnUserIn, userIn);
-                free(userIn);
-                userIn = NULL;
+                //transferring the user's input to a pointer from where this function was called
+                    strcpy(*mainUserIn, userIn);
+                    free(userIn);
+                    userIn = NULL;
             }
 
     }while(!validInput);
-
-    //returning the ADDRESS of where the user's input is stored in the memory
-    /*MUST BE FREED AFTER EVERY TIME inputCharacter IS CALLED!!!*/
-        return returnUserIn;       
+      
 }

@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2023/09/18 -- 2023/09/20
+//Date:                   2024/01/16 -- 2023/xx/xx
 //Description:            This file is what stores all the sorting algorithms this program uses,
 //it also allows the user to choose which algorithm they would like to see be used to sort the
 //generated data. At the moment, only bubble(1), coctail(2), selection(3), and insert(4) sort
@@ -33,7 +33,7 @@
 
         do{
             //getting user input
-                userIn = inputCharacter();
+                inputCharacter(&userIn);
             //checking if the input is acceptable
                 if(strlen(userIn) > strlen("T\0")){
                     printf("\nYou have entered too many characters, please try again!");

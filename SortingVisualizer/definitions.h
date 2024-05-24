@@ -19,14 +19,14 @@
     //doubly list of node structure
         typedef struct {
             DATA_NODE* front;
-            DATA_NODE *rear;
+            DATA_NODE* rear;
             int count;
         }DOUBLY_LIST;
     //function prototypes
 
         int inputInteger(void);
-        char* inputCharacter(void);
-        int generate(char dataType, DOUBLY_LIST* dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
+        char inputCharacter(char**);
+        int generate(char dataType, DOUBLY_LIST** dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
         int generateItems(char dataType, int arraySize);
         int insertItems(char dataType, int arraySize);
         void printData(char dataType);          // "C" for characters, "I" integers, and "A" for asterisk bars

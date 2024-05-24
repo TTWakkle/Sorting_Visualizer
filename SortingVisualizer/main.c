@@ -12,12 +12,13 @@ int main() {
         dataArraySize = inputInteger();
 
         printf("\nSelect which data type you would like to sort\n(\"C\" for characters, \"I\" integers, and \"A\" for asterisk bars): ");
-        generate(algorithmDataType());
+        generate(algorithmDataType(), &dataList);
 
 
     //Sorting based on user's choice
         sort();
         printf("\nhello world\n");
+        free(dataList);
         system("pause");
     return 0;
 }

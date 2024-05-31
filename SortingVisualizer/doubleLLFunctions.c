@@ -53,28 +53,46 @@
     int remove(DOUBLY_LIST* dLL, void** itemPtr){
         //declaring and initializing local variables
             DATA_NODE* deleteNodePtr;
+            int search = find(dLL, deleteNodePtr, (char*)itemPtr); 
 
-        //ensuring that the passed dLL has items to delete
-            if(!dLL->count)
-                return 0;
-        
-        //line 62 allows acess to information of the node that's about to be deleted AFTER remove() runs
-            *itemPtr = NULL; //TODO: ensure this does what it's meant to do, after find() runs
-            deleteNodePtr = NULL; //here too
+        //ensuring that the passed dLL has items to delete, and deleting if item actually exists
+            if(search == 1){
+                if(dLL->front == deleteNodePtr){
+                     dLL->front = deleteNodePtr->next;
+                }
+                else { 
+                    ((DATA_NODE*)(deleteNodePtr->previous))->next = ((DATA_NODE*)(deleteNodePtr->next))->previous;
+                }
+                if(deleteNodePtr->next == NULL)
+                    dLL->rear = deleteNodePtr->previous;
+
+                free(deleteNodePtr);
+                return search;
+            }
+            else
+                return search;
     }
 
 //find an item in the DLL, this algorithm uses Linear Search since node orders are random
-int find(DOUBLY_LIST* dLL, void** itmPtr, data_Type data){
+int find(DOUBLY_LIST* dLL, DATA_NODE** nodePtr, char* data){
     //declaring and initializing local variables
         DATA_NODE* visitedNode = dLL->front;
     //ensuring the DLL has items to begin with
         if(!dLL->count)
             return 0;
     //searching through the dLL to find the node that includes the data we're searching for
-        while(visitedNode != dLL->rear->next && *(visitedNode->dataPtr) != data){
-            
+        while(visitedNode != NULL && (char*)(visitedNode->dataPtr) != *data){
+            visitedNode = visitedNode->next;
         }
-
+    //returning the given node's address and terminating function
+        if(visitedNode->dataPtr == *data){
+            *nodePtr = visitedNode;
+            return 1;
+        }
+        else{
+            *nodePtr == NULL;
+            return -1;
+        }
 }
 
 //Returns a memory address that points to (value) at the FRONT of the DLL structure

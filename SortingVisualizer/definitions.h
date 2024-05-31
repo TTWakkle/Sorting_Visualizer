@@ -11,7 +11,7 @@
         
     //data node structure
         typedef struct {
-            data_Type* dataPtr;
+            void* dataPtr;
             int nodeIndex;
             struct DATA_NODE* next;
             struct DATA_NODE* previous;

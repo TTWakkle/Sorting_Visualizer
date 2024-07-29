@@ -6,7 +6,7 @@
 #include "mainHeader.h"
 
 //Switch block that determines how data will be generated, either randomly or manually, and the size of the data set
-    int generate(char dataType, DOUBLY_LIST** dataList){
+    int generate(char dataType, DOUBLY_LIST* dataList){
         //Declaring and initalizing local variables
             char* userIn;
             int userArrSize;
@@ -49,7 +49,6 @@
             } while (!validInput);
 
         //determining the size of the array of data that is to be sorted
-            validInput = 0;
             printf("\nPlease determine the size of the array you would like to have sorted: ");
             userArrSize = inputInteger();
 
@@ -63,18 +62,17 @@
                 break;
             default:
                 printf("\ncompilation error, please try again\n");
-                return 0;
-                break;
+                return -1;
             }
         return 1;
     }
 
 //This function generates data through a randomizer, and stores them in a doubly list that's been created in main
-    int generateItems(char dataType, int userArrSize, DOUBLY_LIST** dataList){
+    int generateItems(char dataType, int userArrSize, DOUBLY_LIST* dataList){
 
     }
 
 //This function requests data from the user, and stores ...
-int insertItems(char dataType, int userArrSize, DOUBLY_LIST** dataList){
+int insertItems(char dataType, int userArrSize, DOUBLY_LIST* dataList){
 
 }

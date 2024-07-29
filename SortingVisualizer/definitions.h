@@ -26,7 +26,7 @@
 
         int inputInteger(void);
         char inputCharacter(char**);
-        int generate(char dataType, DOUBLY_LIST** dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
+        int generate(char dataType, DOUBLY_LIST* dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
         int generateItems(char dataType, int arraySize);
         int insertItems(char dataType, int arraySize);
         void printData(char dataType);          // "C" for characters, "I" integers, and "A" for asterisk bars
@@ -43,4 +43,12 @@
         int coctailSort();
         int selectionSort();
         int insertSort();
+
+    //Doubly linked list function prototypes
+        DOUBLY_LIST* createDLL(void);
+        int insert(DOUBLY_LIST* dLL, void* itmPtr);
+        int remove(DOUBLY_LIST* dLL, void* itemPtr);
+        int find(DOUBLY_LIST* dLL, DATA_NODE** nodePtr, char* data);
+        int printDLL(DOUBLY_LIST* dLL);
+        void freeDLL(DOUBLY_LIST* dLL);
 #endif

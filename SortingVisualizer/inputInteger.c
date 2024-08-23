@@ -38,6 +38,10 @@ int inputInteger() {
             userIn = NULL;
 
         //Validating if staticUserIn is an acceptable number
+            if(strlen(staticUserIn) == strlen("T\0"))
+                if((int)staticUserIn[0] == 59)
+                    return -1;
+
             for(int i = 0; i < strlen(staticUserIn); i++){
                 if( ( (int)staticUserIn[i]>47 ) && ( (int)staticUserIn[i]<58 ) ){                //ASCII 48 is 0, 57 is 9
                     validInput = 1;

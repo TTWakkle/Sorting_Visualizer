@@ -27,7 +27,7 @@
         int inputInteger(void);
         char inputCharacter(char**);
         int generate(char dataType, DOUBLY_LIST* dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
-        int generateItems(char dataType, int arraySize);
+        void generateItems(char dataType, int dataSetSize, int arraySize);
         int insertItems(char dataType, int arraySize);
         void printData(char dataType);          // "C" for characters, "I" integers, and "A" for asterisk bars
 

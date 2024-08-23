@@ -11,7 +11,7 @@
         int sortAlg = 0;
         do{
             printf("\nPlease select which sorting algorithm you would like to use:\n");
-            printf("\nBubble Sort           (1)\nCoctail Sort          (2)\nSelection Sort        (3)\nInsert Sort           (4)\n");
+            printf("\nBubble Sort\t\t(1)\nCoctail Sort\t\t(2)\nSelection Sort\t\t(3)\nInsert Sort\t\t(4)\n");
             sortAlg = inputInteger();
             if (sortAlg >=1 && sortAlg <=4) {
                 return sortAlg;
@@ -49,15 +49,15 @@
                     }
                     switch (returnCharacter) {
                     case 'C':
-                        printf("\nYou have chosen to demonstrate the sorting algorithms using char (C) data types");
+                        printf("\nYou have chosen to demonstrate the sorting algorithms using char (C) data types.");
                         validInput = 1;
                         break;
                     case 'I':
-                        printf("\nYou have chosen to demonstrate the sorting algorithms using integer (I) data types");
+                        printf("\nYou have chosen to demonstrate the sorting algorithms using integer (I) data types.");
                         validInput = 1;
                         break;
                     case 'A':
-                        printf("\nYou have chosen to demonstrate the sorting algorithms using Asterisk (*) bars as data types");
+                        printf("\nYou have chosen to demonstrate the sorting algorithms using Asterisk (*) bars as data types.");
                         validInput = 1;
                         break;
                     default:
@@ -73,7 +73,6 @@
 
 //Switch block to determine which function call occurs, there is no computation/sorting occuring here. 
     int sort(){
-        
         switch (algorithmSelection()){
             case 1: bubbleSort(); break;
             case 2: coctailSort(); break;

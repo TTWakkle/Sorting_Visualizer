@@ -38,7 +38,7 @@ char inputCharacter(char** mainUserIn) {
 
         //Validating if staticUserIn is an acceptable set of characters only 
             for(int i = 0; i < strlen(userIn); i++){
-                if( ( (((int)*(userIn+i)) > 64) && (((int)*(userIn+i)) < 91) ) || ( (((int)*(userIn+i)) > 96) && (((int)*(userIn+i)) < 123) ) || ( ((int)*(userIn+i)) == 32)){                //ASCII 65 is A, 90 is Z, 97 is a, 122 is z, 32 is a space
+                if( ( (((int)*(userIn+i)) > 64) && (((int)*(userIn+i)) < 91) ) || ( (((int)*(userIn+i)) > 96) && (((int)*(userIn+i)) < 123) ) || ( ((int)*(userIn+i)) == 32 ) || ( ((int)*(userIn+i)) == 59 ) || ( ((int)*(userIn+i)) == 42 )){                //ASCII 65 is A, 90 is Z, 97 is a, 122 is z, 32 is a space, 59 is ;, 42 is *
                     validInput = 1;
                 }
                 else {

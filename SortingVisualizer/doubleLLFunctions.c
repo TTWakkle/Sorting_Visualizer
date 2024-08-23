@@ -45,7 +45,7 @@
 
         /*Increasing the number of items stored in the DLL, Dictating where the 
         * new rear of the queue is, providing the new node an index, and 
-        * returning 1 for a successful run */
+        * returning 1 for successful insertion */
             newNodePtr->nodeIndex = dLL->count;
             (dLL->count)++;
             dLL->rear = newNodePtr;

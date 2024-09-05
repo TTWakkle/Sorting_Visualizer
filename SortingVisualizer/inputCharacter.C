@@ -56,5 +56,6 @@ char inputCharacter(char** mainUserIn) {
             }
 
     }while(!validInput);
-      
+    
+    return ' ';
 }

@@ -10,11 +10,11 @@
         }data_Type;
         
     //data node structure
-        typedef struct {
+        typedef struct node{
             void* dataPtr;
             int nodeIndex;
-            struct DATA_NODE* next;
-            struct DATA_NODE* previous;
+            struct node* next;
+            struct node* previous;
         }DATA_NODE;
     //doubly list of node structure
         typedef struct {
@@ -27,8 +27,8 @@
         int inputInteger(void);
         char inputCharacter(char**);
         int generate(char dataType, DOUBLY_LIST* dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
-        void generateItems(char dataType, int dataSetSize, int arraySize);
-        int insertItems(char dataType, int arraySize);
+        void generateItems(char dataType, int dataSetSize, DOUBLY_LIST* dataList);
+        int insertItems(char dataType, DOUBLY_LIST* dataList);
         void printData(char dataType);          // "C" for characters, "I" integers, and "A" for asterisk bars
 
     //Various utilitarian function prototypes, more can be added here
@@ -46,8 +46,8 @@
 
     //Doubly linked list function prototypes
         DOUBLY_LIST* createDLL(void);
-        int insert(DOUBLY_LIST* dLL, void* itmPtr);
-        int remove(DOUBLY_LIST* dLL, void* itemPtr);
+        int insertNode(DOUBLY_LIST* dLL, void* itmPtr);
+        int removeNode(DOUBLY_LIST* dLL, void* itemPtr);
         int find(DOUBLY_LIST* dLL, DATA_NODE** nodePtr, char* data);
         int printDLL(DOUBLY_LIST* dLL);
         void freeDLL(DOUBLY_LIST* dLL);

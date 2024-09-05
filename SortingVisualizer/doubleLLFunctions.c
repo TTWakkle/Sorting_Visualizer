@@ -22,7 +22,7 @@
             return dLL;
     } 
 //Inserts an item into the end of the DLL
-    int insert(DOUBLY_LIST* dLL, void* itmPtr){
+    int insertNode(DOUBLY_LIST* dLL, void* itmPtr){
         //declaring and initializing local variables
             DATA_NODE* newNodePtr;
             if(!(newNodePtr = (DATA_NODE*)malloc(sizeof(DATA_NODE))))
@@ -52,10 +52,10 @@
             return 1;
     }
 //removes an item from the DLL, given data about the item
-    int remove(DOUBLY_LIST* dLL, void* itemPtr){
+    int removeNode(DOUBLY_LIST* dLL, void* itemPtr){
         //declaring and initializing local variables
             DATA_NODE* deleteNodePtr;
-            int search = find(dLL, deleteNodePtr, (char*)itemPtr); 
+            int search = find(dLL, &deleteNodePtr, (char*)itemPtr); 
 
         //ensuring that the passed dLL has items to delete, and deleting if item actually exists
             if(search == 1){
@@ -83,11 +83,11 @@
             if(!dLL->count)
                 return 0;
         //searching through the dLL to find the node that includes the data we're searching for
-            while(visitedNode != NULL && (char*)(visitedNode->dataPtr) != *data){
+            while(visitedNode != NULL && *((char*)(visitedNode->dataPtr)) != *data){
                 visitedNode = visitedNode->next;
             }
         //returning the given node's address and terminating function
-            if(visitedNode->dataPtr == *data){
+            if(*((char*)(visitedNode->dataPtr)) == *data){
                 *nodePtr = visitedNode;
                 return 1;
             }
@@ -100,17 +100,15 @@
 //Prints out the items stored in the DLL, starting from the front
     int printDLL(DOUBLY_LIST* dLL){
         //Declaring and initializing local variables
-            DATA_NODE* visitNode = NULL;
+            DATA_NODE* pNL;
 
         //checking whether the dLL is empty or not
-            if(dLL->count == 0)
-                return -1;
-            else
-                visitNode = dLL->front;
+            if(!dLL->count)
+                return 0;
 
         //Traversing the dLL until the rear has been printed
-            for(int i = 0; i < dLL->count; i++){
-                printf("%s\n", (char*)(visitNode->dataPtr));
+            for(pNL = dLL->front; pNL->next != NULL; pNL = pNL->next){
+                printf("%s\n", (char*)(pNL->dataPtr));
             }
 
             return 1;
@@ -119,10 +117,8 @@
 //de-allocates any memory that was used for the DLL structure
     void freeDLL(DOUBLY_LIST* dLL){
         DATA_NODE* pNL;
-        for(
+        for(int i = 0; i < dLL->count; i++){
             pNL = dLL->front;
-            pNL->next != NULL;
-            free(pNL->dataPtr),
-            pNL = pNL->next
-        );
+            removeNode(dLL, pNL->dataPtr);
+        }
     }

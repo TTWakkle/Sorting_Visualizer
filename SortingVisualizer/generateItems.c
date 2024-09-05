@@ -5,9 +5,10 @@
 //array in DM, which the address of is then returned to the user.
 #include "mainHeader.h"
 #include <stdint.h>
+#include <time.h>
 
 //Switch block that determines how data will be generated, either randomly or manually, and the size of the data set
-    int generate(char dataType, int dataSetSize, DOUBLY_LIST* dataList){
+    int generate(char dataType, DOUBLY_LIST* dataList){
         //Declaring and initalizing local variables
             char* userIn;
             int userArrSize;
@@ -78,22 +79,22 @@
             for (int i = 0; i < userArrSize; i++) {
                 switch (dataType){
                     case 'C': 
-                        char* newData = (char*)malloc(sizeof(char));
-                        *newData = (char)(rand() % (26) + 65);       //26 is derived from the range of upper case ASCII characters: 90 - 65 + 1, from A to Z basically
-                        insert(dataList, (void*)newData);
-                        free(newData);
+                        char* newChar = (char*)malloc(sizeof(char));
+                        *newChar = (char)(rand() % (26) + 65);       //26 is derived from the range of upper case ASCII characters: 90 - 65 + 1, from A to Z basically
+                        insertNode(dataList, (void*)newChar);
+                        free(newChar);
                     break;
                     case 'A':
-                        char* newData = (char*)calloc(userArrSize, sizeof(char));
-                        *newData = (char)(rand() % (26) + 65);
-                        insert(dataList, (void*)newData);
-                        free(newData);
+                        char* newBar = (char*)calloc(userArrSize, sizeof(char));
+                        *newBar = (char)(rand() % (26) + 65);
+                        insertNode(dataList, (void*)newBar);
+                        free(newBar);
                     break;
                     case 'I':
-                        int* newData = (int*)malloc(sizeof(int));
-                        *newData = rand();
-                        insert(dataList, (void*)newData);
-                        free(newData);
+                        int* newInt = (int*)malloc(sizeof(int));
+                        *newInt = rand();
+                        insertNode(dataList, (void*)newInt);
+                        free(newInt);
                     break;
                 } 
             }
@@ -125,7 +126,7 @@ rePromptC:;          case 'C':
                             }
                             else{           //inserting the character into doubly list
                                 c = *userIn;
-                                insert(dataList, (void*)userIn);
+                                insertNode(dataList, (void*)userIn);
                                 free(userIn);
                                 userIn = NULL;
                                 if((int)c > 96 && (int)c < 123){                       //ASCII 97 is a, 122 is z
@@ -148,7 +149,7 @@ rePromptA:;         case 'A':
                             }
                         //inserting the asterisk bar into doubly list;
                             c = strlen(userIn) > strlen("T\0") ? ' ' : *userIn; 
-                            insert(dataList, (void*)userIn);
+                            insertNode(dataList, (void*)userIn);
                             free(userIn);
                             userIn = NULL;
                     break;
@@ -161,11 +162,11 @@ rePromptA:;         case 'A':
                             c = *num == -1 ? ' ' : ';';         //if the user enters ;, its assigned to c right away
                         //inserting the number into doubly list
                             if(c == ' '){
-                                insert(dataList,(void*)num);
+                                insertNode(dataList,(void*)num);
                                 free(num);
                             }
                     break;
                 }
-            } while (c != ";");
+            } while (c != ';');
             
     }

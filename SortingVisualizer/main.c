@@ -17,11 +17,17 @@ int main() {
 
     //Sorting based on user's choice
         sort();
-        printf("\nhello world\n");
+        printf("\ncurrent items stored in the data list: %d\n", dataList->count);
+        printf("\ncurrent data in DataList:\n");
+
+        printDLL(dataList);
 
     //terminating program
         freeDLL(dataList);
+        printf("\ndLL cleared\n");
+        system("pause");
         free(dataList);
+        printf("\npointer to data list cleared\n");
         system("pause");
     return 0;
 }

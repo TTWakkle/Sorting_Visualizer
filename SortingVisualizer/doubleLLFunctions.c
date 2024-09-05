@@ -39,7 +39,6 @@
             }
             else {
                 newNodePtr->previous = dLL->rear;
-                dLL->rear->previous = dLL->rear;
                 dLL->rear->next = newNodePtr;
             }
 
@@ -59,14 +58,19 @@
 
         //ensuring that the passed dLL has items to delete, and deleting if item actually exists
             if(search == 1){
-                if(dLL->front == deleteNodePtr){
-                     dLL->front = deleteNodePtr->next;
+                if(dLL->front == deleteNodePtr){            //node is at the front
+                    dLL->front = deleteNodePtr->next;
                 }
-                else { 
-                    ((DATA_NODE*)(deleteNodePtr->previous))->next = ((DATA_NODE*)(deleteNodePtr->next))->previous;
+                else{                                       //node exists elsewhere except the front
+                    deleteNodePtr->previous->next = deleteNodePtr->next;
                 }
-                if(deleteNodePtr->next == NULL)
+
+                if(deleteNodePtr->next == NULL){            //node os at the rear
                     dLL->rear = deleteNodePtr->previous;
+                }
+                else{                                       //node exists elsewhere but the front and the rear
+                    deleteNodePtr->next->previous = deleteNodePtr->previous;
+                }
 
                 free(deleteNodePtr);
                 return search;
@@ -92,7 +96,7 @@
                 return 1;
             }
             else{
-                *nodePtr == NULL;
+                *nodePtr = NULL;
                 return -1;
             }
     }
@@ -107,8 +111,11 @@
                 return 0;
 
         //Traversing the dLL until the rear has been printed
-            for(pNL = dLL->front; pNL->next != NULL; pNL = pNL->next){
-                printf("%s\n", (char*)(pNL->dataPtr));
+            for(pNL = dLL->front; pNL != NULL; pNL = pNL->next){
+                if(dLL->dataType == 'C' || dLL->dataType == 'A')
+                    printf("%s\n", (char*)(pNL->dataPtr));
+                else
+                    printf("%d\n", *((int*)pNL->dataPtr));
             }
 
             return 1;
@@ -116,9 +123,14 @@
 
 //de-allocates any memory that was used for the DLL structure
     void freeDLL(DOUBLY_LIST* dLL){
-        DATA_NODE* pNL;
-        for(int i = 0; i < dLL->count; i++){
-            pNL = dLL->front;
-            removeNode(dLL, pNL->dataPtr);
+        DATA_NODE* pNL = dLL->front;
+
+        while(pNL != NULL){
+            DATA_NODE* tmp = pNL;
+            pNL = pNL->next;
+            free(tmp->dataPtr);
+            free(tmp);
         }
+
+        free(dLL);
     }

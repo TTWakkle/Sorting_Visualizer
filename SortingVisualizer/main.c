@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2023/01/18 -- 2023/01/30
+//Date:                   2023/01/18 -- 2023/09/05
 //Description:            initializes the sorting Visualizer program
 
 #include "mainHeader.h"
@@ -21,7 +21,7 @@ int main() {
         printf("\ncurrent data in DataList:\n");
 
         printDLL(dataList);
-
+        system("pause");
     //terminating program
         freeDLL(dataList);
         printf("\ndLL cleared\n");

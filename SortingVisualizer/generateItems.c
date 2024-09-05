@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2024/01/16 -- 2023/09/20
+//Date:                   2024/01/16 -- 2024/09/05
 //Description:            This function allows the user to randomly generate 
 //a set of data, or manually input data of a set size, this is stored as an
 //array in DM, which the address of is then returned to the user.
@@ -14,10 +14,11 @@
             int userArrSize;
             char returnCharacter;
             _Bool validInput = 0;
+            dataList->dataType = dataType;
         //determining wheter the data is to be inputted or generated randomly
             do {
                 //getting user input
-                    printf("\nPlease select wheter you would like to generate a random array(\"R\") of data or input it manually(\"M\")");
+                    printf("\nPlease select wheter you would like to generate a random array(\"R\") of data or input it manually(\"M\"): ");
                     inputCharacter(&userIn);
                 //Checking if the input is acceptable
                     if(strlen(userIn) > strlen("T\0")){
@@ -42,7 +43,7 @@
                             validInput = 1;
                             break;
                         default:
-                            printf("\n%s is not recognized as an option, please try again: ", returnCharacter);
+                            printf("\n%c is not recognized as an option, please try again: ", returnCharacter);
                             validInput = 0;
                             break;
                         }
@@ -85,8 +86,11 @@
                         free(newChar);
                     break;
                     case 'A':
-                        char* newBar = (char*)calloc(userArrSize, sizeof(char));
-                        *newBar = (char)(rand() % (26) + 65);
+                        int barLen = (rand() % userArrSize+1);
+                        char* newBar = (char*)calloc(barLen, sizeof(char));
+                        for(int i = 0; i < barLen; i++){
+                            *(newBar +i) = '*';
+                        }
                         insertNode(dataList, (void*)newBar);
                         free(newBar);
                     break;
@@ -120,12 +124,18 @@ rePromptC:;          case 'C':
                         //Checking if the input is acceptable
                             if(strlen(userIn) > strlen("T\0")){
                                 printf("\nYou have entered too many characters, please try again!");
+                                printf("\nPlease enter ");
                                 free(userIn);
                                 userIn = NULL;
                                 goto rePromptC;
                             }
                             else{           //inserting the character into doubly list
                                 c = *userIn;
+                                if(c == ';'){
+                                    free(userIn);
+                                    userIn = NULL;
+                                    break;
+                                }
                                 insertNode(dataList, (void*)userIn);
                                 free(userIn);
                                 userIn = NULL;
@@ -142,16 +152,24 @@ rePromptA:;         case 'A':
                             for(int i = 0; i < strlen(userIn); i++){
                                 if((((int)*(userIn+i)) != 42) && (((int)*(userIn+i)) != 59)){
                                     printf("\n%s is not a valid asterisks bar, it must contain ONLY \"*\". Please try again.");
+                                    printf("\nPlease enter ");
                                     free(userIn);
                                     userIn = NULL;
                                     goto rePromptA;
                                 }
                             }
                         //inserting the asterisk bar into doubly list;
-                            c = strlen(userIn) > strlen("T\0") ? ' ' : *userIn; 
-                            insertNode(dataList, (void*)userIn);
-                            free(userIn);
-                            userIn = NULL;
+                            c = strlen(userIn) > strlen("T\0") ? ' ' : *userIn;
+                            if(c == ';'){
+                                free(userIn);
+                                userIn = NULL;
+                                break;
+                            }
+                            else{
+                                insertNode(dataList, (void*)userIn);
+                                free(userIn);
+                                userIn = NULL;
+                            }
                     break;
                     case 'I':
                         printf("a positive, whole integer: ");
@@ -159,7 +177,7 @@ rePromptA:;         case 'A':
                             int* num = (int*)malloc(sizeof(int));
                         //getting user input
                             *num = inputInteger();
-                            c = *num == -1 ? ' ' : ';';         //if the user enters ;, its assigned to c right away
+                            c = *num == -1 ? ';' : ' ';         //if the user enters ;, its assigned to c right away
                         //inserting the number into doubly list
                             if(c == ' '){
                                 insertNode(dataList,(void*)num);

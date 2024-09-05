@@ -2,13 +2,6 @@
 #define DEFINITIONS_H_INCLUDED
     
     #define printf __mingw_printf
-    //data union structure, may be obselete, idk we'll see
-        typedef union data {
-            char* asterisks;
-            char letters;
-            int numbers;
-        }data_Type;
-        
     //data node structure
         typedef struct node{
             void* dataPtr;
@@ -20,6 +13,7 @@
         typedef struct {
             DATA_NODE* front;
             DATA_NODE* rear;
+            char dataType;
             int count;
         }DOUBLY_LIST;
     //function prototypes

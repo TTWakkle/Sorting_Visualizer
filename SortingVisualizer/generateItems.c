@@ -4,8 +4,7 @@
 //a set of data, or manually input data of a set size, this is stored as an
 //array in DM, which the address of is then returned to the user.
 #include "mainHeader.h"
-#include <stdint.h>
-#include <time.h>
+
 
 //Switch block that determines how data will be generated, either randomly or manually, and the size of the data set
     int generate(char dataType, DOUBLY_LIST* dataList){

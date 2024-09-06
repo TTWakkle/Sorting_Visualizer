@@ -5,6 +5,7 @@
     #include <stdlib.h>
     #include <string.h>
     #include <stdbool.h>
-    
+    #include <time.h>
+    #include <stdint.h>
     #include "definitions.h"
 #endif

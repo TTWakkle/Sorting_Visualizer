@@ -23,20 +23,19 @@
         int generate(char dataType, DOUBLY_LIST* dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
         void generateItems(char dataType, int dataSetSize, DOUBLY_LIST* dataList);
         int insertItems(char dataType, DOUBLY_LIST* dataList);
-        void printData(char dataType);          // "C" for characters, "I" integers, and "A" for asterisk bars
 
     //Various utilitarian function prototypes, more can be added here
         int algorithmSelection(void);
         char algorithmDataType(void);
-        int sort();
-        void printItems();
+        void printFormatted(DOUBLY_LIST* dLL);
+        int sort(DOUBLY_LIST* dLL);
 
 
     //sorting algorithm function prototypes
-        int bubbleSort();
-        int coctailSort();
-        int selectionSort();
-        int insertSort();
+        int bubbleSort(DOUBLY_LIST* dLL);
+        int coctailSort(DOUBLY_LIST* dLL);
+        int selectionSort(DOUBLY_LIST* dLL);
+        int insertSort(DOUBLY_LIST* dLL);
 
     //Doubly linked list function prototypes
         DOUBLY_LIST* createDLL(void);

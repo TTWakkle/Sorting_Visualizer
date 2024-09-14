@@ -42,7 +42,7 @@
 
         do{
             //getting user input
-                inputCharacter(&userIn);
+                userIn = inputCharacter();
             //checking if the input is acceptable
                 if(strlen(userIn) > strlen("T\0")){
                     printf("\nYou have entered too many characters, please try again!");
@@ -92,7 +92,74 @@
         }
         return 1;
     }
+//This function is a simple comparetor that returns wheter dataPtr_A is greater than nodeB. its sole purpose is to reduce code repetition
+    bool cmpGT(void* dataPtr_A, void* dataPtr_B, char dataType){
+        switch (dataType){     //ensures the right comparision is being done
+            case 'I':
+                if( *(int*)dataPtr_A  > *(int*)dataPtr_B )
+                    return true;
+                else 
+                    return false;
+            case 'C':
+                if( (int)(*(char*)dataPtr_A)  > (int)(*(char*)dataPtr_B) )
+                    return true;
+                else
+                    return false;
+            case 'A':
+                if(strlen((char*)dataPtr_A) > strlen((char*)dataPtr_B))
+                    return true;
+                else
+                    return false;
+            default:
+                return false;
+        }
+    }
 
+//this function operates the exact same way as cmpGT(), except it compares wheter dataPtr_A is less than nodeB
+    bool cmpLT(void* dataPtr_A, void* dataPtr_B, char dataType){
+        switch (dataType){     //ensures the right comparision is being done
+            case 'I':
+                if( *(int*)dataPtr_A  < *(int*)dataPtr_B )
+                    return true;
+                else
+                    return false;
+            case 'C':
+                if( (int)(*(char*)dataPtr_A)  < (int)(*(char*)dataPtr_B) )
+                    return true;
+                else
+                    return false;
+            case 'A':
+                if(strlen((char*)dataPtr_A) < strlen((char*)dataPtr_B))
+                    return true;
+                else
+                    return false;
+            default:
+                return false;
+        }
+    }
+
+//this fucntion simply checks wheter the data in two different nodes are equal or not
+    bool cmpEQ(void* dataPtr_A, void* dataPtr_B, char dataType){
+        switch (dataType){     //ensures the right comparision is being done
+            case 'I':
+                if( *(int*)dataPtr_A == *(int*)dataPtr_B )
+                    return true;
+                else
+                    return false;
+            case 'C':
+                if( *(char*)dataPtr_A  == *(char*)dataPtr_B )
+                    return true;
+                else
+                    return false;
+            case 'A':
+                if(strlen((char*)(dataPtr_A)) == strlen((char*)(dataPtr_B)))
+                    return true;
+                else
+                    return false;
+            default:
+                return false;
+        }
+    }
 /*This function acts sort of like a wrapper to provide proper formatting and display of the provided
 * doubly list, based on the user's selected data type */
 void printFormatted(DOUBLY_LIST* dLL){
@@ -131,24 +198,7 @@ int bubbleSort(DOUBLY_LIST* dLL){
             DATA_NODE* curr = dLL->front;
             
             while(curr->next != NULL){
-                bool swapNeeded = false;
-
-                switch (dLL->dataType){     //ensures the right comparision is being done
-                    case 'I':
-                        if( *((int*)(curr->dataPtr))  > *((int*)(curr->next->dataPtr)) )
-                            swapNeeded = true;
-                    break;
-                    case 'C':
-                        if( *((char*)(curr->dataPtr))  > *((char*)(curr->next->dataPtr)) )
-                            swapNeeded = true;
-                    break;
-                    case 'A':
-                        if(strlen((char*)(curr->dataPtr)) > strlen((char*)(curr->next->dataPtr)))
-                            swapNeeded = true;
-                    break;
-                }
-
-                if(swapNeeded){
+                if(cmpGT(curr->dataPtr, curr->next->dataPtr, dLL->dataType)){
                     void* tmp = curr->dataPtr;
                     curr->dataPtr = curr->next->dataPtr;
                     curr->next->dataPtr = tmp;
@@ -180,24 +230,7 @@ int coctailSort(DOUBLY_LIST* dLL){
 
             //traversing the dLL front -> rear, same pattern as bubbleSort  
                 while(curr->next != NULL){
-                    bool swapNeeded = false;
-
-                    switch (dLL->dataType){     //ensures the right comparision is being done
-                        case 'I':
-                            if( *((int*)(curr->dataPtr))  > *((int*)(curr->next->dataPtr)) )
-                                swapNeeded = true;
-                        break;
-                        case 'C':
-                            if( *((char*)(curr->dataPtr))  > *((char*)(curr->next->dataPtr)) )
-                                swapNeeded = true;
-                        break;
-                        case 'A':
-                            if(strlen((char*)(curr->dataPtr)) > strlen((char*)(curr->next->dataPtr)))
-                                swapNeeded = true;
-                        break;
-                    }
-
-                    if(swapNeeded){
+                    if(cmpGT(curr->dataPtr, curr->next->dataPtr, dLL->dataType)){
                         void* tmp = curr->dataPtr;
                         curr->dataPtr = curr->next->dataPtr;
                         curr->next->dataPtr = tmp;
@@ -215,24 +248,7 @@ int coctailSort(DOUBLY_LIST* dLL){
                 
             //traversing the dLL rear -> front
                 while(curr->previous != NULL){
-                    bool swapNeeded = false;
-
-                    switch (dLL->dataType){     //ensures the right comparision is being done
-                        case 'I':
-                            if( *((int*)(curr->dataPtr))  < *((int*)(curr->previous->dataPtr)) )
-                                swapNeeded = true;
-                        break;
-                        case 'C':
-                            if( *((char*)(curr->dataPtr))  < *((char*)(curr->previous->dataPtr)) )
-                                swapNeeded = true;
-                        break;
-                        case 'A':
-                            if(strlen((char*)(curr->dataPtr)) < strlen((char*)(curr->previous->dataPtr)))
-                                swapNeeded = true;
-                        break;
-                    }
-
-                    if(swapNeeded){
+                    if(cmpLT(curr->dataPtr, curr->previous->dataPtr, dLL->dataType)){
                         void* tmp = curr->dataPtr;
                         curr->dataPtr = curr->previous->dataPtr;
                         curr->previous->dataPtr = tmp;
@@ -247,11 +263,49 @@ int coctailSort(DOUBLY_LIST* dLL){
 }
 
 int selectionSort(DOUBLY_LIST* dLL){
-    printf("\nI do nothing right now!(selection sort funct)");
+    //DAILV
+        DATA_NODE* curr = dLL->front;
+
+    //Initializing the algorithm, and traversing the dLL from front -> rear
+        printf("\nSELECTION SORT!!!!\n");
+        while(curr != NULL){
+            DATA_NODE* minNode = curr;
+            DATA_NODE* nextNode = curr->next;
+
+            while(nextNode != NULL){
+                if(cmpLT(nextNode->dataPtr, minNode->dataPtr, dLL->dataType))
+                    minNode = nextNode;
+                
+                nextNode = nextNode->next;
+            }
+
+            if(!cmpEQ(minNode->dataPtr, curr->dataPtr, dLL->dataType)){
+                void* tmp = curr->dataPtr;
+                curr->dataPtr = minNode->dataPtr;
+                minNode->dataPtr = tmp;
+            }
+
+            curr = curr->next;
+        }   
     return 1;
 }
 
 int insertSort(DOUBLY_LIST* dLL){
-    printf("\nI do nothing right now!(insert sort funct)");
+    //DAILV
+        DATA_NODE* curr = dLL->front->next;
+
+    //Initializing the algorithm
+        printf("\nINSERT SORT!!!\n");
+        while(curr != NULL){
+            DATA_NODE* nodeK = curr;
+            DATA_NODE* prev = curr->previous;
+
+            while(prev != NULL && cmpGT(prev->dataPtr, nodeK->dataPtr, dLL->dataType)){
+                prev->next->dataPtr = prev->dataPtr;
+                prev = prev->previous;
+            }
+            nodeK->dataPtr = prev->dataPtr;
+            curr = curr->next;
+        }
     return 1;
 }

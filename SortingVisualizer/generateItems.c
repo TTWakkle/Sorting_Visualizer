@@ -18,7 +18,7 @@
             do {
                 //getting user input
                     printf("\nPlease select wheter you would like to generate a random array(\"R\") of data or input it manually(\"M\"): ");
-                    inputCharacter(&userIn);
+                    userIn = inputCharacter();
                 //Checking if the input is acceptable
                     if(strlen(userIn) > strlen("T\0")){
                         printf("\nYou have entered too many characters, please try again!");
@@ -80,26 +80,24 @@
                 switch (dataType){
                     case 'C': 
                         char* newChar = (char*)malloc(sizeof(char));
-                        *newChar = (char)(rand() % (26) + 65);       //26 is derived from the range of upper case ASCII characters: 90 - 65 + 1, from A to Z basically
-                        insertNode(dataList, (void*)newChar);
-                        free(newChar);
+                        *newChar = (char)((rand() % 26) + 65);       //26 is derived from the range of upper case ASCII characters: 90 - 65 + 1, from A to Z basically
+                        insertNode(dataList, newChar);
                     break;
                     case 'A':
-                        int barLen = (rand() % userArrSize+1);
-                        char* newBar = (char*)calloc(barLen, sizeof(char));
-                        for(int i = 0; i < barLen; i++){
+                        int barLen = ((rand() % userArrSize) + 2);          //smallest possible length of a bar is 2, max being the # of elements + 2 
+                        char* newBar = (char*)malloc(sizeof(char) * barLen);
+                        for(int i = 0; i < barLen-1; i++){
                             *(newBar +i) = '*';
                         }
-                        insertNode(dataList, (void*)newBar);
-                        free(newBar);
+                        *(newBar + barLen-1) = '\0';        //closing the string to prevent reading overflow from occuring
+                        insertNode(dataList, newBar);
                     break;
                     case 'I':
                         int* newInt = (int*)malloc(sizeof(int));
                         *newInt = rand();
-                        insertNode(dataList, (void*)newInt);
-                        free(newInt);
-                    break;
-                } 
+                        insertNode(dataList, newInt);
+                    break;              //behave 
+                }                                   
             }
     }
 
@@ -119,13 +117,12 @@
 rePromptC:;          case 'C':
                         printf("a character: ");
                         //getting user input
-                            inputCharacter(&userIn);
+                            userIn = inputCharacter();
                         //Checking if the input is acceptable
                             if(strlen(userIn) > strlen("T\0")){
                                 printf("\nYou have entered too many characters, please try again!");
                                 printf("\nPlease enter ");
                                 free(userIn);
-                                userIn = NULL;
                                 goto rePromptC;
                             }
                             else{           //inserting the character into doubly list
@@ -135,40 +132,32 @@ rePromptC:;          case 'C':
                                     userIn = NULL;
                                     break;
                                 }
-                                insertNode(dataList, (void*)userIn);
-                                free(userIn);
-                                userIn = NULL;
                                 if((int)c > 96 && (int)c < 123){                       //ASCII 97 is a, 122 is z
-                                    c = (char)((int)c - 32);                           //this simply capitalizes the user's input 
+                                    *userIn = (char)((int)c - 32);                           //this simply capitalizes the user's input 
                                 }
+                                insertNode(dataList, userIn);
                             }
                     break;
 rePromptA:;         case 'A':
                         printf("a set of asterisks: ");
                         //getting user input
-                            inputCharacter(&userIn);
+                            userIn = inputCharacter();
                         //validating that all characters inserted are asterisks
+                            c = strlen(userIn) > strlen("T\0") ? ' ' : *userIn;
+                            if(c == ';'){
+                                free(userIn);
+                                break;
+                            }
                             for(int i = 0; i < strlen(userIn); i++){
-                                if((((int)*(userIn+i)) != 42) && (((int)*(userIn+i)) != 59)){
+                                if( (int)(*(userIn+i)) != 42 ){
                                     printf("\n%s is not a valid asterisks bar, it must contain ONLY \"*\". Please try again.");
                                     printf("\nPlease enter ");
                                     free(userIn);
-                                    userIn = NULL;
                                     goto rePromptA;
                                 }
                             }
                         //inserting the asterisk bar into doubly list;
-                            c = strlen(userIn) > strlen("T\0") ? ' ' : *userIn;
-                            if(c == ';'){
-                                free(userIn);
-                                userIn = NULL;
-                                break;
-                            }
-                            else{
-                                insertNode(dataList, (void*)userIn);
-                                free(userIn);
-                                userIn = NULL;
-                            }
+                            insertNode(dataList, userIn);
                     break;
                     case 'I':
                         printf("a positive, whole integer: ");
@@ -176,11 +165,10 @@ rePromptA:;         case 'A':
                             int* num = (int*)malloc(sizeof(int));
                         //getting user input
                             *num = inputInteger();
-                            c = *num == -1 ? ';' : ' ';         //if the user enters ;, its assigned to c right away
+                            c = *num == -1 ? ';' : ' ';         //if the user enters ;, inputInteger() returns -1
                         //inserting the number into doubly list
-                            if(c == ' '){
-                                insertNode(dataList,(void*)num);
-                                free(num);
+                            if(c != ';'){
+                                insertNode(dataList, num);
                             }
                     break;
                 }

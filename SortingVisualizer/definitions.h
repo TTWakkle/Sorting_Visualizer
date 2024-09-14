@@ -19,7 +19,7 @@
     //function prototypes
 
         int inputInteger(void);
-        char inputCharacter(char**);
+        char* inputCharacter(void);
         int generate(char dataType, DOUBLY_LIST* dataList);       // "C" for characters, "I" integers, and "A" for asterisk bars
         void generateItems(char dataType, int dataSetSize, DOUBLY_LIST* dataList);
         int insertItems(char dataType, DOUBLY_LIST* dataList);

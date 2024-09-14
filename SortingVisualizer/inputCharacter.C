@@ -14,7 +14,7 @@
 
 /**Requests, Stores, and validates a user's input
  **IT MUST BE FREED AFTER EVERY CALL OF inputCharacter() TO PREVENT MEMORY LEAKS* */
-char inputCharacter(char** mainUserIn) {
+char* inputCharacter() {
     //Declaring and initializing variables
         _Bool validInput = 0;
     
@@ -32,11 +32,10 @@ char inputCharacter(char** mainUserIn) {
                 userIn = (char*)realloc(userIn, currentUserInSize);
             }
 
-        //closing the userIn array and transferring it to a static variable
+        //closing the userIn array
             *(userIn + userInIndex) = '\0';
-            *mainUserIn = (char*)malloc(sizeof(userIn));
 
-        //Validating if staticUserIn is an acceptable set of characters only 
+        //Validating if userIn is an acceptable set of characters
             for(int i = 0; i < strlen(userIn); i++){
                 if( ( (((int)*(userIn+i)) > 64) && (((int)*(userIn+i)) < 91) ) || ( (((int)*(userIn+i)) > 96) && (((int)*(userIn+i)) < 123) ) || ( ((int)*(userIn+i)) == 32 ) || ( ((int)*(userIn+i)) == 59 ) || ( ((int)*(userIn+i)) == 42 )){                //ASCII 65 is A, 90 is Z, 97 is a, 122 is z, 32 is a space, 59 is ;, 42 is *
                     validInput = 1;
@@ -48,14 +47,9 @@ char inputCharacter(char** mainUserIn) {
                 }
             }
 
-            if(validInput){
-                //transferring the user's input to a pointer from where this function was called
-                    strcpy(*mainUserIn, userIn);
-                    free(userIn);
-                    userIn = NULL;
-            }
-
+            if(validInput)
+                return userIn;
     }while(!validInput);
     
-    return ' ';
+    
 }

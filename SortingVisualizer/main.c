@@ -12,19 +12,20 @@ int main() {
         generate(algorithmDataType(), dataList);
 
     //Sorting based on user's choice
-        printf("\ncurrent items stored in the data list: %d\n", dataList->count);
+        printf("\ncurrent items stored in the data list: %d\n", (dataList->count));
         printf("\ncurrent data in DataList:\n");
 
+        printf("Item one in the DLL is %s\n", ((char*)(dataList->front->dataPtr)));
         printDLL(dataList);
+
         system("pause");
 
+        printf("\ndata after sorting has been completed:\n");
         sort(dataList);
+        printDLL(dataList);
     //terminating program
         freeDLL(dataList);
         printf("\ndLL cleared\n");
-        system("pause");
-        free(dataList);
-        printf("\npointer to data list cleared\n");
         system("pause");
     return 0;
 }

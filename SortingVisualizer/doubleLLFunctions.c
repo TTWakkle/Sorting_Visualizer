@@ -45,6 +45,7 @@
         /*Increasing the number of items stored in the DLL, Dictating where the 
         * new rear of the queue is, providing the new node an index, and 
         * returning 1 for successful insertion */
+            
             newNodePtr->nodeIndex = dLL->count;
             (dLL->count)++;
             dLL->rear = newNodePtr;
@@ -105,17 +106,27 @@
     int printDLL(DOUBLY_LIST* dLL){
         //Declaring and initializing local variables
             DATA_NODE* pNL;
-
+            char* c;
+            int* n;
+            printf("\n\tthe dLL stores %c datatype\n", dLL->dataType);
         //checking whether the dLL is empty or not
             if(!dLL->count)
                 return 0;
 
         //Traversing the dLL until the rear has been printed
             for(pNL = dLL->front; pNL != NULL; pNL = pNL->next){
-                if(dLL->dataType == 'C' || dLL->dataType == 'A')
-                    printf("%s\n", (char*)(pNL->dataPtr));
-                else
-                    printf("%d\n", *((int*)pNL->dataPtr));
+                if(dLL->dataType == 'C'){
+                    printf("%c\n", *((char*)(pNL->dataPtr)));
+                }
+                else if(dLL->dataType == 'A'){
+                    printf("%s\n", ((char*)(pNL->dataPtr)));
+                }
+                else if(dLL->dataType == 'I'){
+                    printf("%d\n", *((int*)(pNL->dataPtr)));
+                }
+                else{
+                    printf("\nError, datatype not recognized\n");
+                }
             }
 
             return 1;

@@ -7,5 +7,6 @@
     #include <stdbool.h>
     #include <time.h>
     #include <stdint.h>
+    #include <windows.h>
     #include "definitions.h"
 #endif

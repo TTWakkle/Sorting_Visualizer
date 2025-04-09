@@ -2,7 +2,7 @@
 //Date:                   2024/01/16 -- 2023/xx/xx
 //Description:            This file is what stores all the sorting algorithms this program uses,
 //it also allows the user to choose which algorithm they would like to see be used to sort the
-//generated data. At the moment, only bubble(1), coctail(2), selection(3), and insert(4) sort
+//generated data. At the moment, only bubble(1), cocktail(2), selection(3), and insert(4) sort
 //are currently implemented, more to be added later. 
 #include "mainHeader.h"
 
@@ -13,7 +13,7 @@
             printf("\nPlease select which sorting algorithm you would like to use:");
             printf(
                 "\nBubble Sort\t\t(1)"
-                "\nCoctail Sort\t\t(2)"
+                "\nCocktail Sort\t\t(2)"
                 "\nSelection Sort\t\t(3)"
                 "\nInsert Sort\t\t(4)"
                 "\nTerminate program\t\t(\";\")\n"
@@ -84,7 +84,7 @@
     int sort(DOUBLY_LIST* dLL){
         switch (algorithmSelection()){
             case 1: bubbleSort(dLL); break;
-            case 2: coctailSort(dLL); break;
+            case 2: cocktailSort(dLL); break;
             case 3: selectionSort(dLL); break;
             case 4: insertSort(dLL); break;
             case -1: return 1;
@@ -192,20 +192,31 @@ int bubbleSort(DOUBLY_LIST* dLL){
             return 0;
         }
     //Initializing the algorithm
+        system("cls");
         printf("\nBUBBLE SORT!!!!\n");
+        printDLL(dLL);
+        Sleep(500);
         while(swap){
             swap = false;
             DATA_NODE* curr = dLL->front;
             
             while(curr->next != NULL){
                 if(cmpGT(curr->dataPtr, curr->next->dataPtr, dLL->dataType)){
-                    void* tmp = curr->dataPtr;
-                    curr->dataPtr = curr->next->dataPtr;
-                    curr->next->dataPtr = tmp;
+                    swapNodes(dLL, curr, curr->next);
                     swap = true;
-                }
 
-                curr = curr->next;
+                    system("cls");
+                    printf("\nBUBBLE SORT!!!!\n");
+                    printDLL(dLL);
+                    Sleep(500);
+
+                    if(curr->previous){         //prevents jumping two nodes over, since curr was moved
+                        curr = curr->previous;
+                    }
+                }
+                else{
+                    curr = curr->next;    
+                }
             }
         }
 
@@ -213,7 +224,7 @@ int bubbleSort(DOUBLY_LIST* dLL){
         return 1;
 }
 
-int coctailSort(DOUBLY_LIST* dLL){
+int cocktailSort(DOUBLY_LIST* dLL){
     //DAILV
         bool swap = true;
         
@@ -223,7 +234,10 @@ int coctailSort(DOUBLY_LIST* dLL){
         }
 
     //initializing the algorithm
-        printf("\n COCTAIL SORT!!!!\n");
+        system("cls");
+        printf("\n COCKTAIL SORT!!!!\n");
+        printDLL(dLL);
+        Sleep(500);
         while(swap){
             swap = false;
             DATA_NODE* curr = dLL->front;
@@ -231,15 +245,22 @@ int coctailSort(DOUBLY_LIST* dLL){
             //traversing the dLL front -> rear, same pattern as bubbleSort  
                 while(curr->next != NULL){
                     if(cmpGT(curr->dataPtr, curr->next->dataPtr, dLL->dataType)){
-                        void* tmp = curr->dataPtr;
-                        curr->dataPtr = curr->next->dataPtr;
-                        curr->next->dataPtr = tmp;
+                        swapNodes(dLL, curr, curr->next);
                         swap = true;
+
+                        system("cls");
+                        printf("\n COCKTAIL SORT!!!!\n");
+                        printDLL(dLL);
+                        Sleep(500);
+
+                        if(curr->previous){         //prevents jumping two nodes over, since curr was moved
+                            curr = curr->previous;
+                        }
                     }
-
-                    curr = curr->next;
+                    else{
+                        curr = curr->next;
+                    }
                 }
-
             //checking whether no data manipulation occured
                 if(!swap)
                     break;
@@ -249,13 +270,21 @@ int coctailSort(DOUBLY_LIST* dLL){
             //traversing the dLL rear -> front
                 while(curr->previous != NULL){
                     if(cmpLT(curr->dataPtr, curr->previous->dataPtr, dLL->dataType)){
-                        void* tmp = curr->dataPtr;
-                        curr->dataPtr = curr->previous->dataPtr;
-                        curr->previous->dataPtr = tmp;
+                        swapNodes(dLL, curr->previous, curr);
                         swap = true;
-                    }
 
-                    curr = curr->previous;
+                        system("cls");
+                        printf("\n COCKTAIL SORT!!!!\n");
+                        printDLL(dLL);
+                        Sleep(500);
+                        
+                        if(curr->next){         //prevents jumping two nodes over, since curr was moved
+                            curr = curr->next;
+                        }
+                    }
+                    else{
+                        curr = curr->previous;
+                    }
                 }
         }
     //returning control back on successful sorting
@@ -267,7 +296,10 @@ int selectionSort(DOUBLY_LIST* dLL){
         DATA_NODE* curr = dLL->front;
 
     //Initializing the algorithm, and traversing the dLL from front -> rear
+        system("cls");
         printf("\nSELECTION SORT!!!!\n");
+        printDLL(dLL);
+        Sleep(500);
         while(curr != NULL){
             DATA_NODE* minNode = curr;
             DATA_NODE* nextNode = curr->next;
@@ -275,17 +307,24 @@ int selectionSort(DOUBLY_LIST* dLL){
             while(nextNode != NULL){
                 if(cmpLT(nextNode->dataPtr, minNode->dataPtr, dLL->dataType))
                     minNode = nextNode;
-                
                 nextNode = nextNode->next;
             }
 
             if(!cmpEQ(minNode->dataPtr, curr->dataPtr, dLL->dataType)){
-                void* tmp = curr->dataPtr;
-                curr->dataPtr = minNode->dataPtr;
-                minNode->dataPtr = tmp;
-            }
+                swapNodes(dLL, minNode, curr);
 
-            curr = curr->next;
+                system("cls");
+                printf("\nSELECTION SORT!!!!\n");
+                printDLL(dLL);
+                Sleep(500);
+
+                if(curr->previous){         //prevents jumping two nodes over, since curr was moved
+                    curr = curr->previous;
+                }
+            }
+            else{
+                curr = curr->next;
+            }
         }   
     return 1;
 }
@@ -295,17 +334,26 @@ int insertSort(DOUBLY_LIST* dLL){
         DATA_NODE* curr = dLL->front->next;
 
     //Initializing the algorithm
+        system("cls");
         printf("\nINSERT SORT!!!\n");
+        printDLL(dLL);
+        Sleep(500);
         while(curr != NULL){
             DATA_NODE* nodeK = curr;
             DATA_NODE* prev = curr->previous;
 
             while(prev != NULL && cmpGT(prev->dataPtr, nodeK->dataPtr, dLL->dataType)){
-                prev->next->dataPtr = prev->dataPtr;
-                prev = prev->previous;
+                swapNodes(dLL, prev, nodeK);
+                prev = nodeK->previous;
+
+                system("cls");
+                printf("\nINSERT SORT!!!\n");
+                printDLL(dLL);
+                Sleep(500);
             }
-            nodeK->dataPtr = prev->dataPtr;
+
             curr = curr->next;
         }
+
     return 1;
 }

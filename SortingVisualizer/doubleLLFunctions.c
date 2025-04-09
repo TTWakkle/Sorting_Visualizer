@@ -102,6 +102,71 @@
             }
     }
 
+//This method swaps two nodes inside of a dLL, while ensuring the dLL's structure remains intact
+    int swapNodes(DOUBLY_LIST* dLL, DATA_NODE* nodeA, DATA_NODE* nodeB){
+        //checking if all passed arguements are valid, and the nodes aren't the same
+            if(!dLL || !nodeA || !nodeB || nodeA == nodeB){
+                return 0;
+            }
+
+        //checking if A is right before B
+            if(nodeA->next == nodeB){
+                if(nodeA->previous)
+                    nodeA->previous->next = nodeB;  //prev node's next skips A, jumps right to B
+                else
+                    dLL->front = nodeB;     //A is at the front
+
+                if(nodeB->next)
+                    nodeB->next->previous = nodeA;  //reverse operation of what's above
+                else
+                    dLL->rear = nodeA;
+
+                nodeA->next = nodeB->next;
+                nodeB->previous = nodeA->previous;
+                nodeB->next = nodeA;
+                nodeA->previous = nodeB;
+            }
+        //check if B is right before A
+            else if(nodeB->next == nodeA){
+                //re-call swapNodes(), but flip the order of the nodes
+                return swapNodes(dLL, nodeB, nodeA);
+            }
+        //nodes arent adjacent, full pointer swap is needed
+            else{
+                DATA_NODE* aPrev = nodeA->previous;
+                DATA_NODE* aNext = nodeA->next;
+                DATA_NODE* bPrev = nodeB->previous;
+                DATA_NODE* bNext = nodeB->next;
+
+                //changing the neighbours of A
+                    if(aPrev)
+                        aPrev->next = nodeB;
+                    else
+                        dLL->front = nodeB;
+                    if(aNext)
+                        aNext->previous = nodeB;
+                    else
+                        dLL->rear = nodeB;
+
+                //changing the neighbours of B
+                    if(bPrev)
+                        bPrev->next = nodeA;
+                    else
+                        dLL->front = nodeA;
+                    if(bNext)
+                        bNext->previous = nodeA;
+                    else
+                        dLL->rear = nodeA;
+
+                //Swapping the A & B's pointers
+                    nodeA->previous = bPrev;
+                    nodeA->next = bNext;
+                    nodeB->previous = aPrev;
+                    nodeB->next = aNext;
+            }
+        //Swapping has been successful return control
+            return 1;
+    }
 //Prints out the items stored in the DLL, starting from the front
     int printDLL(DOUBLY_LIST* dLL){
         //Declaring and initializing local variables
@@ -116,17 +181,19 @@
         //Traversing the dLL until the rear has been printed
             for(pNL = dLL->front; pNL != NULL; pNL = pNL->next){
                 if(dLL->dataType == 'C'){
-                    printf("%c\n", *((char*)(pNL->dataPtr)));
+                    printf("%c\t\t", *((char*)(pNL->dataPtr)));
                 }
                 else if(dLL->dataType == 'A'){
-                    printf("%s\n", ((char*)(pNL->dataPtr)));
+                    printf("%s\t\t", ((char*)(pNL->dataPtr)));
                 }
                 else if(dLL->dataType == 'I'){
-                    printf("%d\n", *((int*)(pNL->dataPtr)));
+                    printf("%d\t\t", *((int*)(pNL->dataPtr)));
                 }
                 else{
                     printf("\nError, datatype not recognized\n");
                 }
+                printf("\n");
+                //printf("index (%d)\n", pNL->nodeIndex);
             }
 
             return 1;

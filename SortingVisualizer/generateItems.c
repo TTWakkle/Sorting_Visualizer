@@ -107,6 +107,7 @@
             char* userIn;
             char c;
         //getting user input, until the user has terminated the function
+            system("cls");
             printf(
                 "\nYou are now manually entering in your data, you may add as many items a you would like."
                 "\nOnce you are satisfied, simply input \";\" to terminate the insertion process."

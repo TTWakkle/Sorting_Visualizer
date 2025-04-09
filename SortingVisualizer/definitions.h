@@ -33,7 +33,7 @@
 
     //sorting algorithm function prototypes
         int bubbleSort(DOUBLY_LIST* dLL);
-        int coctailSort(DOUBLY_LIST* dLL);
+        int cocktailSort(DOUBLY_LIST* dLL);
         int selectionSort(DOUBLY_LIST* dLL);
         int insertSort(DOUBLY_LIST* dLL);
 
@@ -42,6 +42,7 @@
         int insertNode(DOUBLY_LIST* dLL, void* itmPtr);
         int removeNode(DOUBLY_LIST* dLL, void* itemPtr);
         int find(DOUBLY_LIST* dLL, DATA_NODE** nodePtr, char* data);
+        int swapNodes(DOUBLY_LIST* dLL, DATA_NODE* nodeA, DATA_NODE* nodeB);
         int printDLL(DOUBLY_LIST* dLL);
         void freeDLL(DOUBLY_LIST* dLL);
 #endif

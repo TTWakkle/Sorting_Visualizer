@@ -1,5 +1,5 @@
 {
     "files.associations": {
-        "inputCharacter.C": "cpp"
+        "mainheader.h": "c"
     }
 }

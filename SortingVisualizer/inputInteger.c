@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2023/11/11 -- 2023/11/13
+//Date:                   2023/11/11 -- 2025/04/09
 //Description:            The purpose of this function is to input, store, and validate
 //a user's input. It can dynamically allocate memory for the user's input, preventing any
 //overflow, prior to validating whether it is an acceptable number or not. It does this
@@ -53,14 +53,24 @@ int inputInteger() {
             }
 
             if(!validInput){
-                printf("%s is not a valid whole number greater than 0 (try again):",staticUserIn);
+                printf(
+                    EC_TXT_YEL
+                    "%s is not a valid whole number greater than 0 (try again):"
+                    EC_TXT_WHT,
+                    staticUserIn
+                );
             }
             else if(atoi(staticUserIn) > 0){
                 validInput = 1;
                 returnValue = atoi(staticUserIn);
             }
             else{
-                printf("%s is not a valid whole number greater than 0 (try again):",staticUserIn);
+                printf(
+                    EC_TXT_YEL
+                    "%s is not a valid whole number greater than 0 (try again):"
+                    EC_TXT_WHT,
+                    staticUserIn
+                );
                 validInput = 0;
             }
     }while(!validInput);

@@ -22,7 +22,7 @@
             },
             "detail": "Building C prgram with MinGW-w64."
         },
-        //this section runs it
+        //this section runs it using ctrl+shift+P then Task:Run Task
         {
             "label": "Run SortingVisualizer",
             "type": "shell",

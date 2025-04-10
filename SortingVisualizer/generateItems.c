@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2024/01/16 -- 2024/09/05
+//Date:                   2024/01/16 -- 2025/04/09
 //Description:            This function allows the user to randomly generate 
 //a set of data, or manually input data of a set size, this is stored as an
 //array in DM, which the address of is then returned to the user.
@@ -17,11 +17,19 @@
         //determining wheter the data is to be inputted or generated randomly
             do {
                 //getting user input
-                    printf("\nPlease select wheter you would like to generate a random array(\"R\") of data or input it manually(\"M\"): ");
+                    printf(
+                        EC_TXT_CYN
+                        "\nPlease select wheter you would like to generate a random array(\"R\") of data or input it manually(\"M\"): "
+                        EC_TXT_WHT
+                    );
                     userIn = inputCharacter();
                 //Checking if the input is acceptable
                     if(strlen(userIn) > strlen("T\0")){
-                        printf("\nYou have entered too many characters, please try again!");
+                        printf(
+                            EC_TXT_YEL
+                            "\nYou have entered too many characters, please try again!"
+                            EC_DEF
+                        );
                         validInput = 0;
                         free(userIn);
                     }
@@ -34,15 +42,28 @@
                         }
                         switch (returnCharacter){
                         case 'R':
-                            printf("\nYou have chosen to have the program generate a random array of data");
+                            printf(
+                                EC_TXT_GRN
+                                "\nYou have chosen to have the program generate a %s%srandom%s%s array of data",
+                                EC_TXT_BLU, EC_UND, EC_DEF, EC_TXT_GRN
+                            );
                             validInput = 1;
                             break;
                         case 'M':
-                            printf("\nYou have chosen to input an array of data manually.");
+                            printf(
+                                EC_TXT_GRN
+                                "\nYou have chosen to input an array of data %s%smanually%s%s.",
+                                EC_TXT_BLU, EC_UND, EC_DEF, EC_TXT_GRN
+                            );
                             validInput = 1;
                             break;
                         default:
-                            printf("\n%c is not recognized as an option, please try again: ", returnCharacter);
+                            printf(
+                                EC_TXT_YEL
+                                "\n%c is not recognized as an option, please try again: "
+                                EC_DEF,
+                                returnCharacter
+                            );
                             validInput = 0;
                             break;
                         }
@@ -58,13 +79,20 @@
                 break;
             case 'R':
                 //determining the size of the array of data that is to be sorted
-                    printf("\nPlease determine the size of the data set you would like to have sorted: ");
+                    printf(
+                        EC_TXT_CYN
+                        "\nPlease determine the size of the data set you would like to have sorted: "
+                        EC_TXT_WHT
+                    );
                     userArrSize = inputInteger();
-
                 generateItems(dataType, userArrSize, dataList);
                 break;
             default:
-                printf("\ncompilation error, please try again\n");
+                printf(
+                    EC_TXT_MAG
+                    "\ncompilation error, please try again\n"
+                    EC_DEF
+                );
                 return -1;
             }
         return 1;
@@ -107,22 +135,38 @@
             char* userIn;
             char c;
         //getting user input, until the user has terminated the function
-            system("cls");
+            
             printf(
+                EC_CLS
+                EC_TXT_CYN
                 "\nYou are now manually entering in your data, you may add as many items a you would like."
-                "\nOnce you are satisfied, simply input \";\" to terminate the insertion process."
+                "\nOnce you are satisfied, simply input %s%s\";\"%s%s to terminate the insertion process."
+                EC_DEF,
+                EC_BLD, EC_TXT_RED, EC_DEF, EC_TXT_CYN
             );
             do {
-                printf("\nPlease enter ");
+                printf(
+                    EC_TXT_CYN
+                    "\nPlease enter "
+                );
                 switch (dataType) {
 rePromptC:;          case 'C':
-                        printf("a character: ");
+                        printf(
+                            "a character: "
+                            EC_TXT_WHT
+                        );
                         //getting user input
                             userIn = inputCharacter();
                         //Checking if the input is acceptable
                             if(strlen(userIn) > strlen("T\0")){
-                                printf("\nYou have entered too many characters, please try again!");
-                                printf("\nPlease enter ");
+                                printf(
+                                    EC_TXT_YEL
+                                    "\nYou have entered too many characters, please try again!"
+                                );
+                                printf(
+                                    EC_TXT_CYN
+                                    "\nPlease enter "
+                                );
                                 free(userIn);
                                 goto rePromptC;
                             }
@@ -140,7 +184,10 @@ rePromptC:;          case 'C':
                             }
                     break;
 rePromptA:;         case 'A':
-                        printf("a set of asterisks: ");
+                        printf(
+                            "a set of asterisks: "
+                            EC_TXT_WHT
+                        );
                         //getting user input
                             userIn = inputCharacter();
                         //validating that all characters inserted are asterisks
@@ -151,8 +198,16 @@ rePromptA:;         case 'A':
                             }
                             for(int i = 0; i < strlen(userIn); i++){
                                 if( (int)(*(userIn+i)) != 42 ){
-                                    printf("\n%s is not a valid asterisks bar, it must contain ONLY \"*\". Please try again.");
-                                    printf("\nPlease enter ");
+                                    printf(
+                                        EC_TXT_YEL
+                                        "\n%s is not a valid asterisks bar, it must contain %sonly%s%s%s \"*\"%s%s. Please try again."
+                                        EC_DEF,
+                                        userIn, EC_ITC, EC_DEF, EC_TXT_WHT, EC_BLD, EC_DEF, EC_TXT_YEL
+                                    );
+                                    printf(
+                                        EC_TXT_CYN
+                                        "\nPlease enter "
+                                    );
                                     free(userIn);
                                     goto rePromptA;
                                 }
@@ -161,7 +216,10 @@ rePromptA:;         case 'A':
                             insertNode(dataList, userIn);
                     break;
                     case 'I':
-                        printf("a positive, whole integer: ");
+                        printf(
+                            "a positive, whole integer: "
+                            EC_TXT_WHT
+                        );
                         //DIALV
                             int* num = (int*)malloc(sizeof(int));
                         //getting user input

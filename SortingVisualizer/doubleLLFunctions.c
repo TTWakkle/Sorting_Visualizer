@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2024/05/18 -- 2024/xx/xx
+//Date:                   2024/05/18 -- 2025/04/09
 //Description:            This file contains basic functions and operations
 //that could be applied to a double linked list data structure. It handles all nodes
 //as generic nodes 
@@ -173,7 +173,14 @@
             DATA_NODE* pNL;
             char* c;
             int* n;
-            printf("\n\tthe dLL stores %c datatype\n", dLL->dataType);
+            printf(
+                EC_TXT_CYN
+                EC_UND
+                "\n\t\tthe dLL stores %c datatype\n"
+                EC_DEF
+                EC_TXT_CYN,
+                dLL->dataType
+            );
         //checking whether the dLL is empty or not
             if(!dLL->count)
                 return 0;
@@ -192,7 +199,10 @@
                 else{
                     printf("\nError, datatype not recognized\n");
                 }
-                printf("\n");
+                printf(
+                    "%s%s(%d)%s%s\n",
+                    EC_BLD, EC_TXT_BG_WHT, pNL->nodeIndex, EC_DEF,EC_TXT_CYN
+                );
                 //printf("index (%d)\n", pNL->nodeIndex);
             }
 

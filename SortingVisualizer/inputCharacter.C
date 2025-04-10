@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2024/01/16 -- 2024/09/05
+//Date:                   2024/01/16 -- 2025/04/09
 //Description:            requests a string of characters from the user,
 //but will only accept a charcter set that does not include any numbers or 
 //symbols, with the exception of spacebars. it allocates memory for the given
@@ -41,7 +41,12 @@ char* inputCharacter() {
                     validInput = 1;
                 }
                 else {
-                    printf("\n%s is not a valid set of characters!Please try again: ", userIn);
+                    printf(
+                        EC_TXT_YEL
+                        "\n%s is not a valid set of characters! Please try again: "
+                        EC_TXT_WHT,
+                        userIn
+                    );
                     validInput = 0;
                     break;
                 }

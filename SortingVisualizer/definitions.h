@@ -3,7 +3,7 @@
     
     #define printf __mingw_printf
     //data node structure
-        typedef struct node{
+        typedef struct node {
             void* dataPtr;
             int nodeIndex;
             struct node* next;

@@ -1,5 +1,5 @@
 //Author:                 Taha Twakkal
-//Date:                   2024/01/16 -- 2023/xx/xx
+//Date:                   2024/01/16 -- 2025/04/09
 //Description:            This file is what stores all the sorting algorithms this program uses,
 //it also allows the user to choose which algorithm they would like to see be used to sort the
 //generated data. At the moment, only bubble(1), cocktail(2), selection(3), and insert(4) sort
@@ -10,13 +10,21 @@
     int algorithmSelection(){
         int sortAlg = 0;
         do{
-            printf("\nPlease select which sorting algorithm you would like to use:");
             printf(
+                EC_TXT_CYN
+                EC_UND
+                EC_BLD
+                "\nPlease select which sorting algorithm you would like to use:"
+                EC_DEF
+                EC_TXT_CYN
                 "\nBubble Sort\t\t(1)"
                 "\nCocktail Sort\t\t(2)"
                 "\nSelection Sort\t\t(3)"
                 "\nInsert Sort\t\t(4)"
-                "\nTerminate program\t\t(\";\")\n"
+                EC_TXT_RED
+                "\nTerminate program\t(\";\")\n"
+                EC_DEF
+                EC_TXT_WHT
             );
             sortAlg = inputInteger();
             if(sortAlg == -1){
@@ -26,7 +34,12 @@
                 return sortAlg;
             }
             else{
-                printf("/n %d is not a valid selection, please try again!", sortAlg);
+                printf(
+                    EC_TXT_YEL
+                    "\n%d is not a valid selection, please try again!"
+                    EC_DEF,
+                    sortAlg
+                );
             }
         }while (sortAlg <1 || sortAlg >4);
 
@@ -42,10 +55,16 @@
 
         do{
             //getting user input
+                printf(EC_TXT_WHT);
                 userIn = inputCharacter();
             //checking if the input is acceptable
                 if(strlen(userIn) > strlen("T\0")){
-                    printf("\nYou have entered too many characters, please try again!");
+                    printf(
+                        EC_BLD
+                        EC_TXT_RED
+                        "\nYou have entered too many characters, please try again!"
+                        EC_DEF
+                    );
                     validInput = 0;
                     free(userIn);
                 }
@@ -58,19 +77,42 @@
                     }
                     switch (returnCharacter) {
                     case 'C':
-                        printf("\nYou have chosen to demonstrate the sorting algorithms using char (C) data types.");
+                        printf(
+                            EC_TXT_GRN
+                            "\nYou have chosen to demonstrate the sorting algorithms using %s%schar (C)%s data types.",
+                            EC_TXT_BLU,
+                            EC_UND,
+                            EC_DEF
+                        );
                         validInput = 1;
                         break;
                     case 'I':
-                        printf("\nYou have chosen to demonstrate the sorting algorithms using integer (I) data types.");
+                        printf(
+                            EC_TXT_GRN
+                            "\nYou have chosen to demonstrate the sorting algorithms using %s%sInteger (I)%s data types.",
+                            EC_TXT_BLU,
+                            EC_UND,
+                            EC_DEF
+                        );
                         validInput = 1;
                         break;
                     case 'A':
-                        printf("\nYou have chosen to demonstrate the sorting algorithms using Asterisk (*) bars as data types.");
+                        printf(
+                            EC_TXT_GRN
+                            "\nYou have chosen to demonstrate the sorting algorithms using %s%sAsterisk (*)%s bars as data types.",
+                            EC_TXT_BLU,
+                            EC_UND,
+                            EC_DEF
+                        );
                         validInput = 1;
                         break;
                     default:
-                        printf("\n%c is not recognized as an option, please try again: ", returnCharacter);
+                        printf(
+                            EC_TXT_YEL
+                            "\n%c is not recognized as an option, please try again: "
+                            EC_DEF,
+                            returnCharacter
+                        );
                         validInput = 0;
                         break;
                     }
@@ -88,7 +130,13 @@
             case 3: selectionSort(dLL); break;
             case 4: insertSort(dLL); break;
             case -1: return 1;
-            default: printf("\nThat is not a valid selection, please try again!\n"); break;
+            default: 
+                printf(
+                    EC_TXT_YEL
+                    "\nThat is not a valid selection, please try again!\n"
+                    EC_DEF
+                ); 
+            break;
         }
         return 1;
     }
@@ -192,8 +240,15 @@ int bubbleSort(DOUBLY_LIST* dLL){
             return 0;
         }
     //Initializing the algorithm
-        system("cls");
-        printf("\nBUBBLE SORT!!!!\n");
+        printf(
+            EC_CLS
+            EC_BLD
+            EC_UND
+            EC_TXT_BG_GRN
+            EC_TXT_WHT
+            "\nBUBBLE SORT!!!!\n"
+            EC_DEF
+        );
         printDLL(dLL);
         Sleep(500);
         while(swap){
@@ -205,8 +260,15 @@ int bubbleSort(DOUBLY_LIST* dLL){
                     swapNodes(dLL, curr, curr->next);
                     swap = true;
 
-                    system("cls");
-                    printf("\nBUBBLE SORT!!!!\n");
+                    printf(
+                        EC_CLS
+                        EC_BLD
+                        EC_UND
+                        EC_TXT_BG_GRN
+                        EC_TXT_WHT
+                        "\nBUBBLE SORT!!!!\n"
+                        EC_DEF
+                    );
                     printDLL(dLL);
                     Sleep(500);
 
@@ -234,8 +296,15 @@ int cocktailSort(DOUBLY_LIST* dLL){
         }
 
     //initializing the algorithm
-        system("cls");
-        printf("\n COCKTAIL SORT!!!!\n");
+        printf(
+            EC_CLS
+            EC_BLD
+            EC_UND
+            EC_TXT_BG_GRN
+            EC_TXT_WHT
+            "\nCOCKTAIL SORT!!!!\n"
+            EC_DEF
+        );
         printDLL(dLL);
         Sleep(500);
         while(swap){
@@ -248,8 +317,15 @@ int cocktailSort(DOUBLY_LIST* dLL){
                         swapNodes(dLL, curr, curr->next);
                         swap = true;
 
-                        system("cls");
-                        printf("\n COCKTAIL SORT!!!!\n");
+                        printf(
+                            EC_CLS
+                            EC_BLD
+                            EC_UND
+                            EC_TXT_BG_GRN
+                            EC_TXT_WHT
+                            "\nCOCKTAIL SORT!!!!\n"
+                            EC_DEF
+                        );
                         printDLL(dLL);
                         Sleep(500);
 
@@ -273,8 +349,15 @@ int cocktailSort(DOUBLY_LIST* dLL){
                         swapNodes(dLL, curr->previous, curr);
                         swap = true;
 
-                        system("cls");
-                        printf("\n COCKTAIL SORT!!!!\n");
+                        printf(
+                            EC_CLS
+                            EC_BLD
+                            EC_UND
+                            EC_TXT_BG_GRN
+                            EC_TXT_WHT
+                            "\nCOCKTAIL SORT\n"
+                            EC_DEF
+                        );
                         printDLL(dLL);
                         Sleep(500);
                         
@@ -296,8 +379,15 @@ int selectionSort(DOUBLY_LIST* dLL){
         DATA_NODE* curr = dLL->front;
 
     //Initializing the algorithm, and traversing the dLL from front -> rear
-        system("cls");
-        printf("\nSELECTION SORT!!!!\n");
+        printf(
+            EC_CLS
+            EC_BLD
+            EC_UND
+            EC_TXT_BG_GRN
+            EC_TXT_WHT
+            "\nSELECTION SORT!!!!\n"
+            EC_DEF
+        );
         printDLL(dLL);
         Sleep(500);
         while(curr != NULL){
@@ -313,8 +403,15 @@ int selectionSort(DOUBLY_LIST* dLL){
             if(!cmpEQ(minNode->dataPtr, curr->dataPtr, dLL->dataType)){
                 swapNodes(dLL, minNode, curr);
 
-                system("cls");
-                printf("\nSELECTION SORT!!!!\n");
+                printf(
+                    EC_CLS
+                    EC_BLD
+                    EC_UND
+                    EC_TXT_BG_GRN
+                    EC_TXT_WHT
+                    "\nSELECTION SORT!!!!\n"
+                    EC_DEF
+                );
                 printDLL(dLL);
                 Sleep(500);
 
@@ -334,8 +431,15 @@ int insertSort(DOUBLY_LIST* dLL){
         DATA_NODE* curr = dLL->front->next;
 
     //Initializing the algorithm
-        system("cls");
-        printf("\nINSERT SORT!!!\n");
+        printf(
+            EC_CLS
+            EC_BLD
+            EC_UND
+            EC_TXT_BG_GRN
+            EC_TXT_WHT
+            "\nINSERT SORT!!!\n"
+            EC_DEF
+        );
         printDLL(dLL);
         Sleep(500);
         while(curr != NULL){
@@ -346,8 +450,15 @@ int insertSort(DOUBLY_LIST* dLL){
                 swapNodes(dLL, prev, nodeK);
                 prev = nodeK->previous;
 
-                system("cls");
-                printf("\nINSERT SORT!!!\n");
+                printf(
+                    EC_CLS
+                    EC_BLD
+                    EC_UND
+                    EC_TXT_BG_GRN
+                    EC_TXT_WHT
+                    "\nINSERT SORT!!!\n"
+                    EC_DEF
+                );
                 printDLL(dLL);
                 Sleep(500);
             }
